@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Something here</title>
+</head>
+<body>
+<h3 th:if="${username != null}" th:text="${'Current user: ' + username + ' with nickname ' + nickname}"></h3>
+<h1> Something Needs to go here!!!</h1>
+<a th: if="!${username}" href ="/login">LOG IN HERE</a>
+<br>
+<a th:if="!${username}"href="/signup">SIGN UP</a>
+<a th:if="${username}" href="/logout">Log Out</a>
+
+</body>
+</html>

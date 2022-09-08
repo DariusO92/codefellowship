@@ -20,20 +20,20 @@ public class appController  {
     AppRepo appRepo;
 
     @Autowired
-    PasswordEncoder passwordEncoder;
+     private PasswordEncoder passwordEncoder;
 
     @Autowired
-   private HttpServlet request;
+    HttpServlet request;
 
 
     @GetMapping("/")
     public String homePage(Principal p, Model m){
         if (p !=null){
             String username = p.getName();
-            appUser youSir = appRepo.findByUsername(username);
+            appUser yousir = appRepo.findByUsername(username);
 
             m.addAttribute("username",username);
-            m.addAttribute("nickname", youSir.getNickname());
+            m.addAttribute("nickname", yousir.getNickname());
         }
         return "index.html";
     }
@@ -46,36 +46,19 @@ public class appController  {
         return "signup";
     }
 
-
-    @GetMapping("/bossSauce")
-    public String getSecretSauce(){
-        return "secretSauce";
-    }
-
     @PostMapping("/signup")
     public RedirectView createUser(String username, String nickname, String password){
-        String hashedPassword = passwordEncoder.encode(password);
-        appUser newYousir = new appUser(username, hashedPassword, nickname);
+        String hasedPassword = passwordEncoder.encode(password);
+        appUser newYousir = new appUser(username, hasedPassword, nickname);
         appRepo.save(newYousir);
-        //authWithHttpServletRequest(username, password);
+        authWithHttpServletRequest(username, password);
         return new RedirectView("/login");
     }
-
-    @PostMapping("/test")
-    public  RedirectView testAppUser(){
-        String hashedPassword = passwordEncoder.encode("password");
-        appUser newAppUser = new appUser("wade",hashedPassword, "Parcival");
-        appRepo.save(newAppUser);
-        return new RedirectView("/");
-    }
-
-
-
-   /* public void authWithHttpServletRequest(String username, String password){
-        try{
+    public void authWithHttpServletRequest(String username, String password){
+       /* try{
             request.login(username, password);
         } catch (ServletException e){
             e.printStackTrace();
-        }
-    }*/
+        }*/
+    }
 }
